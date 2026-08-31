@@ -1,0 +1,1386 @@
+import os
+import zipfile
+from textwrap import dedent
+
+base = "/mnt/data/basic_flutter_exercises"
+os.makedirs(base, exist_ok=True)
+
+files = {}
+
+files["Exercise_01_Verify_Environment/README.txt"] = """EXERCISE 1 - VERIFY YOUR FLUTTER ENVIRONMENT
+
+Run these commands in the terminal:
+
+1. flutter doctor
+2. Fix any reported errors.
+3. flutter devices
+4. Start your Android Emulator.
+5. Run flutter devices again and confirm that the emulator appears.
+
+Expected output:
+A working Flutter environment with an Android emulator detected.
+
+Useful commands:
+flutter doctor
+flutter devices
+flutter emulators
+flutter emulators --launch <emulator_id>
+"""
+
+files["Exercise_02_Hello_Flutter/main.dart"] = dedent("""\
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: const Center(
+          child: Text('Hello, Flutter!'),
+        ),
+      ),
+    );
+  }
+}
+""")
+
+files["Exercise_03_Change_Text/main.dart"] = dedent("""\
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: const Center(
+          child: Text(
+            'Welcome to Mobile Application Development!',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+""")
+
+files["Exercise_04_Personal_Profile_Card/main.dart"] = dedent("""\
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Personal Profile')),
+        body: const Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.person, size: 100),
+              SizedBox(height: 20),
+              Text(
+                'Lionel Isaac',
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              Text(
+                'BS Information Technology',
+                style: TextStyle(fontSize: 18),
+              ),
+              SizedBox(height: 5),
+              Text('1st Year', style: TextStyle(fontSize: 18)),
+              SizedBox(height: 20),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                child: Text(
+                  'I am an IT student learning programming, web development, '
+                  'and mobile application development.',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+""")
+
+files["Exercise_05_Student_Information/main.dart"] = dedent("""\
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  Widget infoRow(IconData icon, String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 15),
+      child: Row(
+        children: [
+          Icon(icon),
+          const SizedBox(width: 10),
+          Expanded(child: Text(text, style: const TextStyle(fontSize: 18))),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Student Information')),
+        body: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Student Information',
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 30),
+              infoRow(Icons.person, 'Name: Juan Dela Cruz'),
+              infoRow(Icons.badge, 'Student ID: 2026-0001'),
+              infoRow(Icons.school, 'Course: BS Information Technology'),
+              infoRow(Icons.calendar_today, 'Year: 2nd Year'),
+              infoRow(Icons.group, 'Section: BSIT-2A'),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+""")
+
+files["Exercise_06_Row_vs_Column/main.dart"] = dedent("""\
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Row vs Column')),
+        body: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              const Text(
+                'Section A - Column',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20),
+              const Column(
+                children: [
+                  Text('Home', style: TextStyle(fontSize: 18)),
+                  SizedBox(height: 10),
+                  Text('Profile', style: TextStyle(fontSize: 18)),
+                  SizedBox(height: 10),
+                  Text('Settings', style: TextStyle(fontSize: 18)),
+                ],
+              ),
+              const SizedBox(height: 40),
+              const Text(
+                'Section B - Row',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text('Home', style: TextStyle(fontSize: 18)),
+                  Text('Profile', style: TextStyle(fontSize: 18)),
+                  Text('Settings', style: TextStyle(fontSize: 18)),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+""")
+
+files["Exercise_07_Login_Screen_UI/main.dart"] = dedent("""\
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Login')),
+        body: Padding(
+          padding: const EdgeInsets.all(25),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Student Login',
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 30),
+              const TextField(
+                decoration: InputDecoration(
+                  labelText: 'Username',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.person),
+                ),
+              ),
+              const SizedBox(height: 15),
+              const TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.lock),
+                ),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Login'),
+                ),
+              ),
+              const SizedBox(height: 15),
+              const Text('Forgot Password?'),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+""")
+
+files["Exercise_08_Business_Card/main.dart"] = dedent("""\
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Business Card')),
+        body: Center(
+          child: Card(
+            margin: const EdgeInsets.all(20),
+            child: Container(
+              padding: const EdgeInsets.all(25),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const CircleAvatar(
+                    radius: 50,
+                    child: Icon(Icons.person, size: 60),
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Lionel Isaac',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 5),
+                  const Text('IT Student', style: TextStyle(fontSize: 18)),
+                  const Divider(height: 30),
+                  const Row(
+                    children: [
+                      Icon(Icons.email),
+                      SizedBox(width: 10),
+                      Text('lionel@example.com'),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                  const Row(
+                    children: [
+                      Icon(Icons.phone),
+                      SizedBox(width: 10),
+                      Text('0912-345-6789'),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                  const Row(
+                    children: [
+                      Icon(Icons.location_on),
+                      SizedBox(width: 10),
+                      Expanded(child: Text('Philippines')),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+""")
+
+files["Exercise_09_Product_Card/main.dart"] = dedent("""\
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Product Card')),
+        body: Center(
+          child: Card(
+            margin: const EdgeInsets.all(20),
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.phone_android, size: 100),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'SmartPhone X',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'A fictional smartphone with powerful features.',
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 15),
+                  const Text(
+                    '₱15,999',
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: const Text('Buy Now'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+""")
+
+files["Exercise_10_Button_Changes_Message/main.dart"] = dedent("""\
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String message = 'Hello, Student!';
+
+  void changeMessage() {
+    setState(() {
+      message = 'Button was clicked!';
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Exercise 10')),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(message, style: const TextStyle(fontSize: 24)),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: changeMessage,
+                child: const Text('Click Me'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+""")
+
+files["Exercise_11_Counter_App/main.dart"] = dedent("""\
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int counter = 0;
+
+  void increase() {
+    setState(() => counter++);
+  }
+
+  void decrease() {
+    setState(() {
+      if (counter > 0) {
+        counter--;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Counter App')),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '$counter',
+                style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: decrease,
+                    child: const Text('-'),
+                  ),
+                  const SizedBox(width: 20),
+                  ElevatedButton(
+                    onPressed: increase,
+                    child: const Text('+'),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+""")
+
+files["Exercise_12_Like_Button/main.dart"] = dedent("""\
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool isLiked = false;
+  int likes = 0;
+
+  void toggleLike() {
+    setState(() {
+      isLiked = !isLiked;
+      likes = isLiked ? 1 : 0;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Like Button')),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                onPressed: toggleLike,
+                icon: Icon(
+                  isLiked ? Icons.favorite : Icons.favorite_border,
+                ),
+                iconSize: 70,
+              ),
+              Text(
+                'Likes: $likes',
+                style: const TextStyle(fontSize: 22),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+""")
+
+files["Exercise_13_Show_Hide_Text/main.dart"] = dedent("""\
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool showPassword = false;
+
+  void togglePassword() {
+    setState(() {
+      showPassword = !showPassword;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final String password = showPassword ? 'mypassword123' : '********';
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Show / Hide Text')),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Password: $password',
+                style: const TextStyle(fontSize: 20),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: togglePassword,
+                child: Text(
+                  showPassword ? 'Hide Password' : 'Show Password',
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+""")
+
+files["Exercise_14_Greeting_App/main.dart"] = dedent("""\
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final TextEditingController nameController = TextEditingController();
+  String message = '';
+
+  void sayHello() {
+    final name = nameController.text.trim();
+
+    setState(() {
+      message = name.isEmpty ? 'Please enter your name.' : 'Hello, $name!';
+    });
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Greeting App')),
+        body: Padding(
+          padding: const EdgeInsets.all(25),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                controller: nameController,
+                decoration: const InputDecoration(
+                  labelText: 'Enter your name',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: sayHello,
+                child: const Text('Say Hello'),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                message,
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+""")
+
+files["Exercise_15_Simple_Calculator/main.dart"] = dedent("""\
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final firstController = TextEditingController();
+  final secondController = TextEditingController();
+
+  String result = '0';
+
+  void calculate(String operation) {
+    final first = double.tryParse(firstController.text);
+    final second = double.tryParse(secondController.text);
+
+    if (first == null || second == null) {
+      setState(() => result = 'Please enter valid numbers.');
+      return;
+    }
+
+    double answer;
+
+    switch (operation) {
+      case '+':
+        answer = first + second;
+        break;
+      case '-':
+        answer = first - second;
+        break;
+      case '×':
+        answer = first * second;
+        break;
+      case '÷':
+        if (second == 0) {
+          setState(() => result = 'Cannot divide by zero.');
+          return;
+        }
+        answer = first / second;
+        break;
+      default:
+        answer = 0;
+    }
+
+    setState(() => result = answer.toString());
+  }
+
+  @override
+  void dispose() {
+    firstController.dispose();
+    secondController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Simple Calculator')),
+        body: Padding(
+          padding: const EdgeInsets.all(25),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                controller: firstController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: 'First Number',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 15),
+              TextField(
+                controller: secondController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: 'Second Number',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Wrap(
+                spacing: 10,
+                children: [
+                  ElevatedButton(
+                    onPressed: () => calculate('+'),
+                    child: const Text('+'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => calculate('-'),
+                    child: const Text('-'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => calculate('×'),
+                    child: const Text('×'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => calculate('÷'),
+                    child: const Text('÷'),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 25),
+              Text(
+                'Result: $result',
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+""")
+
+files["Exercise_16_Temperature_Converter/main.dart"] = dedent("""\
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final controller = TextEditingController();
+  String result = '';
+
+  void celsiusToFahrenheit() {
+    final celsius = double.tryParse(controller.text);
+
+    if (celsius == null) {
+      setState(() => result = 'Please enter a valid number.');
+      return;
+    }
+
+    final fahrenheit = (celsius * 9 / 5) + 32;
+    setState(() => result = '$celsius °C = $fahrenheit °F');
+  }
+
+  void fahrenheitToCelsius() {
+    final fahrenheit = double.tryParse(controller.text);
+
+    if (fahrenheit == null) {
+      setState(() => result = 'Please enter a valid number.');
+      return;
+    }
+
+    final celsius = (fahrenheit - 32) * 5 / 9;
+    setState(() => result = '$fahrenheit °F = $celsius °C');
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Temperature Converter')),
+        body: Padding(
+          padding: const EdgeInsets.all(25),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                controller: controller,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: 'Enter Temperature',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: celsiusToFahrenheit,
+                child: const Text('Celsius → Fahrenheit'),
+              ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: fahrenheitToCelsius,
+                child: const Text('Fahrenheit → Celsius'),
+              ),
+              const SizedBox(height: 25),
+              Text(
+                result,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+""")
+
+files["Exercise_17_Student_List/main.dart"] = dedent("""\
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  final List<String> students = const [
+    'Juan Dela Cruz',
+    'Maria Santos',
+    'Pedro Reyes',
+    'Ana Garcia',
+    'Mark Cruz',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Student List')),
+        body: ListView.builder(
+          itemCount: students.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              leading: CircleAvatar(child: Text('${index + 1}')),
+              title: Text(students[index]),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+""")
+
+files["Exercise_18_To_Do_List/main.dart"] = dedent("""\
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final taskController = TextEditingController();
+
+  final List<String> tasks = [
+    'Study Flutter',
+    'Read Dart documentation',
+    'Complete laboratory exercise',
+    'Practice widgets',
+  ];
+
+  final List<bool> completed = [false, false, false, false];
+
+  void addTask() {
+    final task = taskController.text.trim();
+
+    if (task.isEmpty) return;
+
+    setState(() {
+      tasks.add(task);
+      completed.add(false);
+      taskController.clear();
+    });
+  }
+
+  @override
+  void dispose() {
+    taskController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('To-Do List')),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: taskController,
+                      decoration: const InputDecoration(
+                        labelText: 'New Task',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  ElevatedButton(
+                    onPressed: addTask,
+                    child: const Text('Add'),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: tasks.length,
+                itemBuilder: (context, index) {
+                  return CheckboxListTile(
+                    value: completed[index],
+                    onChanged: (value) {
+                      setState(() {
+                        completed[index] = value ?? false;
+                      });
+                    },
+                    title: Text(
+                      tasks[index],
+                      style: TextStyle(
+                        decoration: completed[index]
+                            ? TextDecoration.lineThrough
+                            : TextDecoration.none,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+""")
+
+files["Exercise_19_Student_Dashboard/main.dart"] = dedent("""\
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Student Dashboard')),
+        body: ListView(
+          padding: const EdgeInsets.all(15),
+          children: [
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  children: [
+                    const CircleAvatar(
+                      radius: 35,
+                      child: Icon(Icons.person, size: 40),
+                    ),
+                    const SizedBox(width: 15),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'Lionel Isaac',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Text('BS Information Technology'),
+                        Text('1st Year'),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 15),
+            const Text(
+              'Enrolled Subjects',
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            const Card(
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: Icon(Icons.computer),
+                    title: Text('Programming 1'),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.storage),
+                    title: Text('Database Management'),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.web),
+                    title: Text('Web Development'),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.network_check),
+                    title: Text('Networking'),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 15),
+            const Text(
+              'Announcements',
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            const Card(
+              child: ListTile(
+                leading: Icon(Icons.announcement),
+                title: Text('Laboratory Exercise'),
+                subtitle: Text('Complete your Flutter exercise.'),
+              ),
+            ),
+            const SizedBox(height: 15),
+            const Text(
+              'Upcoming Activities',
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            const Card(
+              child: ListTile(
+                leading: Icon(Icons.event),
+                title: Text('Flutter Presentation'),
+                subtitle: Text('Prepare your application demonstration.'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+""")
+
+files["Exercise_20_Simple_Expense_Tracker/main.dart"] = dedent("""\
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final descriptionController = TextEditingController();
+  final amountController = TextEditingController();
+  final categoryController = TextEditingController();
+
+  final List<Map<String, dynamic>> expenses = [];
+
+  void addExpense() {
+    final description = descriptionController.text.trim();
+    final amount = double.tryParse(amountController.text);
+    final category = categoryController.text.trim();
+
+    if (description.isEmpty || amount == null || category.isEmpty) return;
+
+    setState(() {
+      expenses.add({
+        'description': description,
+        'amount': amount,
+        'category': category,
+      });
+
+      descriptionController.clear();
+      amountController.clear();
+      categoryController.clear();
+    });
+  }
+
+  double get total {
+    return expenses.fold(
+      0.0,
+      (sum, expense) => sum + (expense['amount'] as double),
+    );
+  }
+
+  @override
+  void dispose() {
+    descriptionController.dispose();
+    amountController.dispose();
+    categoryController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Expense Tracker')),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                children: [
+                  TextField(
+                    controller: descriptionController,
+                    decoration: const InputDecoration(
+                      labelText: 'Expense Description',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  TextField(
+                    controller: amountController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Amount',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  TextField(
+                    controller: categoryController,
+                    decoration: const InputDecoration(
+                      labelText: 'Category',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: addExpense,
+                      child: const Text('Add Expense'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(),
+            Expanded(
+              child: expenses.isEmpty
+                  ? const Center(child: Text('No expenses yet.'))
+                  : ListView.builder(
+                      itemCount: expenses.length,
+                      itemBuilder: (context, index) {
+                        final expense = expenses[index];
+
+                        return ListTile(
+                          leading: const Icon(Icons.receipt),
+                          title: Text(expense['description']),
+                          subtitle: Text(expense['category']),
+                          trailing: Text(
+                            '₱${(expense['amount'] as double).toStringAsFixed(2)}',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(20),
+              width: double.infinity,
+              child: Text(
+                'Total: ₱${total.toStringAsFixed(2)}',
+                textAlign: TextAlign.right,
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+""")
+
+# Write all files
+for rel_path, content in files.items():
+    path = os.path.join(base, rel_path)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(content)
+
+# Add a master README
+readme = """BASIC FLUTTER EXERCISES 1-20
+
+This package contains Exercises 1-20.
+
+Exercise 1:
+- No main.dart is required.
+- Follow Exercise_01_Verify_Environment/README.txt.
+
+Exercises 2-20:
+- Each folder contains a complete main.dart.
+- Create/open a Flutter project.
+- Replace its lib/main.dart with the exercise's main.dart.
+- Run: flutter run
+
+For a clean workflow, you can create a separate Flutter project for each exercise.
+"""
+with open(os.path.join(base, "README.txt"), "w", encoding="utf-8") as f:
+    f.write(readme)
+
+zip_path = "/mnt/data/Basic_Flutter_Exercises_1-20.zip"
+with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as z:
+    for root, _, filenames in os.walk(base):
+        for filename in filenames:
+            full = os.path.join(root, filename)
+            z.write(full, os.path.relpath(full, base))
+
+print(f"Created {len(files)} exercise files plus README.")
+print(zip_path)
